@@ -2,7 +2,7 @@
 <html>
   <head>
       <meta charset="UTF-8">
-      <title>TodoApp - Create A Todo With Django</title>
+      <title>Formulario Películas</title>
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   </head>
   <body>
@@ -10,7 +10,7 @@
 
           <!-- Encabezado de la página-->
           <h1>Gestión de Películas</h1>
-          <p class="tagline">Añadir y ver películas en Django</p>
+          <p class="tagline">Añadir película</p>
           <!-- Fin encabezado -->
           <form action="" method="post">
               {% csrf_token %} <!-- csrf token for basic security -->
@@ -43,7 +43,7 @@
               <!-- Botones para agregar o eliminar película -->
               <div class="row">
                   <button class="btn btn-primary" name="addMovie" type="submit"><i class="fa fa-plus icon"></i>Agregar película</button>
-                  <button disabled class="btn btn-danger" name="deleteMovie" formnovalidate="" type="submit" onclick="$('input#sublist').click();"><i class="fa fa-trash-o icon"></i>Eliminar película</button>
+                  <button class="btn btn-danger" name="deleteMovie" formnovalidate="" type="submit" onclick="$('input#sublist').click();"><i class="fa fa-trash-o icon"></i>Eliminar película</button>
               </div>
               <!-- Fin botones para agregar o eliminar película -->
               <!-- Lista de las películas existentes -->
