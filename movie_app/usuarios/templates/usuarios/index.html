@@ -1,69 +1,76 @@
 <!DOCTYPE html>
 <html>
-  <head>
-      <meta charset="UTF-8">
-      <title>Formulario Películas</title>
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-  </head>
-  <body>
-      <div class="container" style="margin-top: 2em">
 
-          <!-- Encabezado de la página-->
-          <h1>Gestión de Películas</h1>
-          <p class="tagline">Añadir película</p>
-          <!-- Fin encabezado -->
-          <form action="" method="post">
-              {% csrf_token %} <!-- csrf token for basic security -->
-              <!-- Formulario para agregar nueva película-->
-              <div class="form-group">
-                  <label for="titulo">Título de la película</label>
-                  <input type="text" id="titulo" class="form-control" placeholder="Título de la película" name="titulo" required>
-              </div>
-              <div class="form-group">
-                  <label for="anno">Año</label>
-                  <input type="number" id="anno" class="form-control" placeholder="Año de estreno" name="anno" required>
-              </div>
-              <div class="form-group">
-                  <label for="genero">Género</label>
-                  <input type="text" id="genero" class="form-control" placeholder="Género de la película" name="genero" required>
-              </div>
-              <div class="form-group">
-                  <label for="duracion">Duración (minutos)</label>
-                  <input type="number" id="duracion" class="form-control" placeholder="Duración de la película" name="duracion" required>
-              </div>
-              <div class="form-group">
-                  <label for="director">Director</label>
-                  <input type="text" id="director" class="form-control" placeholder="Nombre del director" name="director" required>
-              </div>
-              <div class="form-group">
-                  <label for="descripcion">Descripción</label>
-                  <textarea id="descripcion" class="form-control" placeholder="Descripción de la película" name="descripcion" required></textarea>
-              </div>
-              <!-- Fin formulario de nueva película -->
-              <!-- Botones para agregar o eliminar película -->
-              <div class="row">
-                  <button class="btn btn-primary" name="addMovie" type="submit"><i class="fa fa-plus icon"></i>Agregar película</button>
-                  <button class="btn btn-danger" name="deleteMovie" formnovalidate="" type="submit" onclick="$('input#sublist').click();"><i class="fa fa-trash-o icon"></i>Eliminar película</button>
-              </div>
-              <!-- Fin botones para agregar o eliminar película -->
-              <!-- Lista de las películas existentes -->
-              <ul class="list-group">
-               {% for pelicula in peliculas %} <!-- django template lang - for loop -->
-                   <li class="list-group-item">
-                       <input type="checkbox" class="movieCheckbox" name="checkedbox" id="{{ pelicula.id }}" value="{{ pelicula.id }}">
-                       <label for="{{ pelicula.id }}"><span class="complete-"><b>Título: </b>{{ pelicula.titulo }}</span></label>
-                       <span class="categoria-{{ pelicula.genero }}"><b>Género: </b>{{ pelicula.genero }}</span>
-                       <span><b>Año: </b>{{ pelicula.anno }}</span>
-                       <span><b>Duración: </b>{{ pelicula.duracion }} minutos</span>
-                       <span><b>Director: </b>{{ pelicula.director }}</span>
-                       <p><b>Descripción: </b>{{ pelicula.descripcion }}</p>
-                   </li>
-               {% endfor %}
-           </ul>
-              <!-- Fin de la lista de películas existentes-->
-          </form>
-      </div><!-- container -->
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario Películas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
 
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  </body>
+<body>
+    <div class="container" style="margin-top: 2em">
+
+        <!-- Encabezado de la página-->
+        <h1>Gestión de Películas</h1>
+        <p class="tagline">Añadir película</p>
+        <!-- Fin encabezado -->
+        <hr>
+        {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">Cerrar sesión </a>
+        {% else %}
+        <a href="{% url 'register_user' %}">Registrarse</a>
+        <a href="{% url 'login' %}">Iniciar Sesión</a>        {% endif %}
+        <hr>
+
+        <form action="" method="post">
+            {% csrf_token %} <!-- csrf token for basic security -->
+            <!-- Formulario para agregar nueva película-->
+            <div class="form-group">
+                <label for="titulo">Título de la película</label>
+                <input type="text" id="titulo" class="form-control" placeholder="Título de la película" name="titulo"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="anno">Año</label>
+                <input type="number" id="anno" class="form-control" placeholder="Año de estreno" name="anno" required>
+            </div>
+            <div class="form-group">
+                <label for="genero">Género</label>
+                <input type="text" id="genero" class="form-control" placeholder="Género de la película" name="genero"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="duracion">Duración (minutos)</label>
+                <input type="number" id="duracion" class="form-control" placeholder="Duración de la película"
+                    name="duracion" required>
+            </div>
+            <div class="form-group">
+                <label for="director">Director</label>
+                <input type="text" id="director" class="form-control" placeholder="Nombre del director" name="director"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <textarea id="descripcion" class="form-control" placeholder="Descripción de la película"
+                    name="descripcion" required></textarea>
+            </div>
+            <!-- Fin formulario de nueva película -->
+            <!-- Botones para agregar o eliminar película -->
+            <div class="row">
+                <button class="btn btn-primary" name="addMovie" type="submit"><i class="fa fa-plus icon"></i>Agregar
+                    película</button>
+                <button class="btn btn-danger" name="deleteMovie" formnovalidate="" type="submit"
+                    onclick="$('input#sublist').click();"><i class="fa fa-trash-o icon"></i>Eliminar película</button>
+            </div>
+            <!-- Fin botones para agregar o eliminar película -->
+            <!-- Lista de las películas existentes -->
+
+            <!-- Fin de la lista de películas existentes-->
+        </form>
+    </div><!-- container -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+
 </html>

@@ -16,7 +16,7 @@ def peliculas(request):
             duracion = request.POST["duracion"]
             director = request.POST["director"]
             descripcion = request.POST["descripcion"]
-
+            
             nueva_pelicula = Pelicula(
                 titulo=titulo,
                 anno=anno,
@@ -26,7 +26,26 @@ def peliculas(request):
                 descripcion=descripcion
             )
             nueva_pelicula.save()
-
+            if request.user.is_authenticated:
+                nueva_pelicula = Pelicula(
+                    titulo=titulo,
+                    anno=anno,
+                    genero=genero,
+                    duracion=duracion,
+                    director=director,
+                    descripcion=descripcion,
+                    owner=request.user
+                )
+            else:
+                nueva_pelicula = Pelicula(
+                    titulo=titulo,
+                    anno=anno,
+                    genero=genero,
+                    duracion=duracion,
+                    director=director,
+                    descripcion=descripcion
+                )
+            nueva_pelicula.save()
         elif "deleteMovie" in request.POST:
             # Eliminar películas seleccionadas
             ids_a_eliminar = request.POST.getlist("checkedbox")
